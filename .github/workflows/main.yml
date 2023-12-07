@@ -4,8 +4,7 @@ on:
   schedule:
     - cron:  '0 */2 * * *'
 
-permissions:
-  actions: write-all
+permissions: write-all
 
 name: Automated Releases
 
