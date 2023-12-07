@@ -2,25 +2,22 @@ on:
   workflow_dispatch:
   push:
   schedule:
-    #- cron:  '0 */2 * * *'
-    - cron:  '*/5 * * * *'
+    #- cron:  '17 */2 * * *'
+    - cron:  '*/10 * * * *'
 
 permissions: write-all
 
 name: Automated Releases
-
 jobs:
   release:
     name: Create Release
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Code
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Add SHORT_SHA env property with commit short sha
-        run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
-      - name: Set current date
+      - name: Set Timestamp
         id: date
         run: |
           echo "UNIXTIMESTAMP=$(date +'%s')" >> $GITHUB_ENV
