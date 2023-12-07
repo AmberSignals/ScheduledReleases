@@ -2,7 +2,8 @@ on:
   workflow_dispatch:
   push:
   schedule:
-    - cron:  '0 */2 * * *'
+    #- cron:  '0 */2 * * *'
+    - cron:  '*/5 * * * *'
 
 permissions: write-all
 
