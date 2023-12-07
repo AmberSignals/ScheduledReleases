@@ -19,11 +19,15 @@ jobs:
           fetch-depth: 0
       - name: Add SHORT_SHA env property with commit short sha
         run: echo "SHORT_SHA=`echo ${GITHUB_SHA} | cut -c1-8`" >> $GITHUB_ENV
+      - name: Set current date
+        id: date
+        run: |
+          echo "{UNIXTIMESTAMP}={$(date +'%s')}" >> $GITHUB_STATE
       - name: Create Tag
         uses: rickstaa/action-create-tag@v1
         id: "tag_create"
         with:
-          tag: ${{ env.SHORT_SHA }}
+          tag: ${{ env.UNIXTIMESTAMP }}
           tag_exists_error: false
           message: "Automated Release."
       - name: Create Release
@@ -32,8 +36,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ env.SHORT_SHA }}
-          release_name: Release ${{ env.SHORT_SHA }}
+          tag_name: ${{ env.UNIXTIMESTAMP }}
+          release_name: Release ${{ env.UNIXTIMESTAMP }}
           body: |
             Automated Release.
           draft: false
