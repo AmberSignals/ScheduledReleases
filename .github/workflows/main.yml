@@ -23,7 +23,7 @@ jobs:
         uses: rickstaa/action-create-tag@v1
         id: "tag_create"
         with:
-          tag: "${SHORT_SHA}"
+          tag: ${{ SHORT_SHA }}
           tag_exists_error: false
           message: "Automated Release."
       - name: Create Release
@@ -32,8 +32,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "${SHORT_SHA}"
-          release_name: "Release ${SHORT_SHA}"
+          tag_name: ${{ SHORT_SHA }}
+          release_name: Release ${{ SHORT_SHA }}
           body: |
             Automated Release.
           draft: false
